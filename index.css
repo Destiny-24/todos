@@ -1,0 +1,129 @@
+*{
+  margin: 0;
+  padding: 0;
+  font: 24px Helvetica, Arial, sans-serif;
+  color: #666;
+}
+.todos-container{
+  margin-top: 100px;
+}
+.todos-title{
+  font-size: 60px;
+  text-align: center;
+  font-weight: 100;
+  color:#66D178;
+  margin-bottom: 20px;
+}
+.todos-content{
+  width:660px;
+
+  background:rgba(255,255,255,1);
+  border:1px solid rgba(224,224,224,1);
+  box-shadow:0px 2px 8px 0px rgba(204,204,204,0.54);
+  border-radius:2px;
+  margin: 0 auto;
+}
+.todos-input{
+  width: 601px;
+  height: 29px;
+  padding: 20px 10px 20px 49px;
+  font-size: 18px;
+  border: none;
+}
+.todos-item{
+  display: flex;
+  height: 32px;
+  border-top: 1px solid #e4e4e4;
+  background:rgba(255,255,255,1);
+  border-radius:0px 0px 2px 2px;
+  padding: 18px 18px 18px 10px;
+  position: relative;
+  align-items: center;
+}
+.todos-item.active .todos-item-bd{
+  text-decoration: line-through;
+  color: #999999;
+}
+.todos-item.active .todos-item-hd{
+  width:20px;
+  height:20px;
+  background:rgba(53,181,88,1);
+  border-radius:50%;
+}
+.todos-item.active .todos-item-hd::after{
+  display: inline-block;
+  content: '';
+  width: 13px;
+  height: 7px;
+  right: 2px;
+  position: absolute;
+  border-bottom: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  transform: rotate(-45deg);
+  top: 5px;
+}
+.todos-item-hd{
+  height: 20px;
+  width: 20px;
+  border:1px solid #CCCCCC;
+  border-radius: 50%;
+  margin-right: 15px;
+  cursor: pointer;
+  position: relative;
+}
+.todos-item-ft{
+  position: absolute;
+  right: 18px;
+  color: #BABABA;
+  display: none;
+  cursor: pointer;
+}
+.todos-item:hover .todos-item-ft{
+  display: inline-block;
+  color: #999;
+}
+.todos-item-bd{
+  font-size:18px;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(34,34,34,1);
+}
+.todos-filter{
+  border: 1px solid #e4e4e4;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 19px;
+  align-items: center;
+  height: 47px;
+}
+.filter-list{
+  display: flex;
+  width: 230px;
+  align-items: center;
+}
+.filter-count{
+  font-size: 16px;
+  font-weight: 400;
+  color: #535353;
+}
+.filter-dell{
+  font-size: 16px;
+  font-weight: 400;
+  color: #535353;
+}
+.filter-item{
+  position: relative;
+  height:16px;
+  font-size:16px;
+  font-family:PingFang SC;
+  font-weight:400;
+  margin: 0 auto ;
+  color: #999999;
+  cursor: pointer;
+}
+.filter-dell{
+  cursor: pointer;
+}
+.filter-item.active{
+  color: #35b558;
+}
