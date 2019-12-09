@@ -23,27 +23,20 @@ const PAGE= {
     this.getTodo();
   },
   bind:function(){
-    let input = document.getElementById('todos-input')
-    input.addEventListener('keyup',this.addTodo);
-    let todoLitst = document.getElementById('todos-list')
-    this.onEventLister(todoLitst,'click','todos-item-hd',this.toggleTodo);
-    this.onEventLister(todoLitst,'click','todos-item-ft',this.removeTodo);
-    let todoFilter = document.getElementById('filter-list');
-    this.onEventLister(todoFilter,'click','filter-item',this.filterTodo)
-    window.addEventListener('unload',this.saveTodo);
-    let todoDell = document.getElementById('todos-dell');
-    this.onEventLister(todoDell,'click','filter-dell',this.dellTodl);
-  },
-  onEventLister:function(parentNode,action,chilClassName,callback){
-    parentNode.addEventListener(action,function(e){
-      e.target.className.indexOf(chilClassName)>= 0 && callback(e);
-    })
+    $('.todos-input-content').on('keyup','.todos-input',this.addTodo);
+    $('.todos-list').on('click','.todos-item-hd',this.toggleTodo);
+    $('.todos-list').on('click','.todos-item-ft',this.removeTodo);
+    $('.filter-list').on('click','.filter-item',this.filterTodo);
+    $('.todos-filter').on('click','.filter-dell',this.dellTodo);
+    $(window).on('unload',this.saveTodo);
   },
   render:function(){
     let todos = this.data.todos;
     let filter = this.data.filter;
     let filters = this.data.filters;
+    let index = todos.filter(data => data.completed);
     todos.forEach((data,index) => data.index = index);
+    $('.filter-count').get(0).innerHTML=index.length + '个项目';
     let showTodo;
     switch(filter){
       case 2:
@@ -70,14 +63,9 @@ const PAGE= {
       <div class="filter-item  ${filter == key ? ' active' : ''}" data-id="${key}">${filters[key]}</div>
       `
     }).join('');
-    let todoFilter = document.getElementById('filter-list');
-    let todoLitst = document.getElementById('todos-list');
-    todoFilter.innerHTML = filterElement;
-    todoLitst.innerHTML = todosElement;
-
-    let filterCount = document.getElementsByClassName('filter-count');
-    let index = todos.filter(data => data.completed);
-    filterCount[0].innerHTML=index.length + '个项目';
+     $('.filter-list').html(filterElement);
+     $('.todos-list').html(todosElement);
+    
   },
   addTodo:function(e){
     let value =this.value.trim();
@@ -92,26 +80,21 @@ const PAGE= {
     this.value='';
     PAGE.render();
   },
-  toggleTodo:function(e){
-    let filterCount = document.getElementsByClassName('filter-count');
+  toggleTodo:function(){
     let todos = PAGE.data.todos;
     todos.filter(data => data.completed);
-    filterCount.innerHTML=todos.length + '个项目';
-    let todoItem = e.target.parentNode;
-    let index = todoItem.dataset.index;
+    let index = $(this).parent().data('index');
     todos[index].completed = !todos[index].completed;
     PAGE.render();
   },
-  removeTodo:function(e){
+  removeTodo:function(){
     let todos = PAGE.data.todos;
-    let todoItem = e.target.parentNode;
-    let index = todoItem.dataset.index;
+    let index = $(this).parent().data('index');
     todos.splice(index,1);
     PAGE.render();
   },
-  filterTodo:function(e){
-    let filterItem = e.target;
-    let filter = filterItem.dataset.id;
+  filterTodo:function(){
+    let filter =$(this).data('id')
     PAGE.data.filter = Number(filter);
     PAGE.render(); 
   },
@@ -126,7 +109,7 @@ const PAGE= {
     PAGE.data.todos =todos;
     PAGE.render()
   },
-  dellTodl:function(){
+  dellTodo:function(){
     let todos = PAGE.data.todos;
     PAGE.data.todos = todos.filter(data => !data.completed);
     PAGE.render();
